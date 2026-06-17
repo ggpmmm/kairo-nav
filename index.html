@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>开罗游戏库</title>
+    <title>小点新丫游戏库</title>
     <style>
         :root {
-            /* 浅色渐变配色 */
             --bg-start: #f8fafc;
             --bg-end: #e2e8f0;
             --card: rgba(255, 255, 255, 0.8);
@@ -14,7 +13,12 @@
             --accent: #2563eb;
             --sub: #64748b;
         }
-        * { margin:0; padding:0; box-sizing:border-box; }
+        * { 
+            margin:0; padding:0; box-sizing:border-box; 
+            /* 关键修复：清除安卓点击高亮 */
+            -webkit-tap-highlight-color: transparent; 
+            outline: none;
+        }
         body { 
             background: linear-gradient(135deg, var(--bg-start), var(--bg-end)); 
             min-height: 100vh;
