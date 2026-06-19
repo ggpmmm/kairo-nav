@@ -39,10 +39,9 @@
             border: 1px solid rgba(255,255,255,0.5);
         }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .card img { width: 64px; height: 64px; border-radius: 14px; margin-bottom: 12px; object-fit: cover; }
+        .card img { width: 64px; height: 64px; border-radius: 14px; margin-bottom: 12px; object-fit: cover; background: #eee; }
         .card-name { font-weight: 600; font-size: 14px; }
 
-        /* 新增：日志区域样式 */
         .update-box { background: var(--card); padding: 25px; border-radius: 24px; margin-top: 40px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
         .update-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; }
         .update-item { margin-bottom: 10px; font-size: 14px; color: var(--sub); }
@@ -73,51 +72,6 @@
     <div class="footer">开罗游戏库 © 2026</div>
 </div>
 
-<script>
-    const gameData = {
-        "热门精选": [
-            {name:"大海贼探险DX", icon:"./images/daxianhai.png", desc:"探索未知海域，建立属于你的海贼帝国。"},
-            {name:"游戏开发国", icon:"https://via.placeholder.com/64", desc:"从车库开始，成长为顶级的游戏开发公司。"},
-            {name:"魔王城物语", icon:"https://via.placeholder.com/64", desc:"功能说明：\n金钱不减反增、研究不减反增"}
-        ],
-        "模拟经营": [
-            {name:"百货商场物语", icon:"https://via.placeholder.com/64", desc:"经营你的百货大楼，吸引全球顾客。"}
-        ]
-    };
-
-    const container = document.getElementById("gameContainer");
-
-    function render(keyword="") {
-        container.innerHTML="";
-        for(const category in gameData) {
-            const games = gameData[category].filter(item => item.name.includes(keyword));
-            if(games.length === 0) continue;
-
-            let html = `<div class="section-title">${category}</div><div class="games">`;
-            games.forEach(game => {
-                html += `
-                    <div class="card" onclick="showDetail(this)" data-name="${game.name}" data-desc="${game.desc.replace(/\n/g, '\\n')}">
-                        < img src="${game.icon}" alt="${game.name}">
-                        <div class="card-name">${game.name}</div>
-                    </div>`;
-            });
-            html += `</div>`;
-            container.innerHTML += html;
-        }
-    }
-
-    function showDetail(el) {
-        document.getElementById("modalTitle").innerText = el.getAttribute("data-name");
-        document.getElementById("modalDesc").innerText = el.getAttribute("data-desc").replace(/\\n/g, '\n');
-        document.getElementById("detailModal").style.display = "flex";
-    }
-
-    function closeModal() { document.getElementById("detailModal").style.display = "none"; }
-
-    document.getElementById("search").addEventListener("input", e => render(e.target.value));
-    render();
-</script>
-
 <div id="detailModal" class="modal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <span class="close-btn" onclick="closeModal()">关闭</span>
@@ -125,6 +79,64 @@
         <p id="modalDesc"></p >
     </div>
 </div>
+
+<script>
+    const gameData = {
+        "热门精选": [
+            {name:"大海贼探险DX", icon:"images/daxianhai.png", desc:"探索未知海域，建立属于你的海贼帝国。"},
+            {name:"游戏开发国", icon:"images/kaifaguo.png", desc:"从车库开始，成长为顶级的游戏开发公司。"},
+            {name:"魔王城物语", icon:"images/mowangcheng.png", desc:"功能说明：\n金钱不减反增、研究不减反增"}
+        ],
+        "模拟经营": [
+            {name:"百货商场物语", icon:"images/baihuo.png", desc:"经营你的百货大楼，吸引全球顾客。"}
+        ]
+    };
+
+    const container = document.getElementById("gameContainer");
+
+    function render(keyword = "") {
+        container.innerHTML = "";
+        for (const category in gameData) {
+            const games = gameData[category].filter(item => item.name.includes(keyword));
+            if (games.length === 0) continue;
+
+            const title = document.createElement("div");
+            title.className = "section-title";
+            title.innerText = category;
+            container.appendChild(title);
+
+            const grid = document.createElement("div");
+            grid.className = "games";
+            container.appendChild(grid);
+
+            games.forEach(game => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.onclick = () => {
+                    document.getElementById("modalTitle").innerText = game.name;
+                    document.getElementById("modalDesc").innerText = game.desc;
+                    document.getElementById("detailModal").style.display = "flex";
+                };
+
+                const img = document.createElement("img");
+                img.src = game.icon;
+                img.alt = game.name;
+
+                const nameDiv = document.createElement("div");
+                nameDiv.className = "card-name";
+                nameDiv.innerText = game.name;
+
+                card.appendChild(img);
+                card.appendChild(nameDiv);
+                grid.appendChild(card);
+            });
+        }
+    }
+
+    function closeModal() { document.getElementById("detailModal").style.display = "none"; }
+    document.getElementById("search").addEventListener("input", e => render(e.target.value));
+    render();
+</script>
 
 </body>
 </html>
