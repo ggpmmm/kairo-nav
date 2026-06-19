@@ -5,85 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>开罗游戏库</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background: #f1f5f9; font-family: -apple-system, sans-serif; padding: 15px; }
+        :root { --bg-color: #f0f4f8; --card-bg: #ffffff; --text-main: #1e293b; --text-sub: #64748b; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background: var(--bg-color); color: var(--text-main); font-family: sans-serif; padding-bottom: 30px; }
         
-        .games { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 8px; 
-        }
+        .header { text-align:center; padding: 30px 20px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .logo { font-size:24px; font-weight:800; color: #0f172a; margin-bottom: 15px; }
+        .search input { width:90%; max-width:400px; padding:10px 20px; border-radius:20px; border:1px solid #e2e8f0; background: #f8fafc; outline: none; }
+        
+        .container { width:95%; max-width:800px; margin: 20px auto; }
+        
+        /* 两列布局 */
+        .games { display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         
         .card { 
-            background: #ffffff; 
-            padding: 8px; 
-            border-radius: 12px; 
-            aspect-ratio: 1 / 1; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            cursor: pointer;
+            background: var(--card-bg); padding: 8px; border-radius: 10px; cursor: pointer; 
+            display: flex; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: transform 0.1s;
         }
+        .card:hover { transform: translateY(-2px); }
         
+        /* 强制图片显示逻辑 */
         .card img { 
-            width: 70%; 
-            height: 70%; 
-            object-fit: cover; 
-            border-radius: 6px; 
+            width: 40px; height: 40px; border-radius: 6px; 
+            object-fit: cover; margin-right: 10px; flex-shrink: 0; background: #eee; 
         }
-        
-        /* 关键修复：名字超长处理 */
-        .card-name { 
-            font-size: 9px; 
-            font-weight: 600; 
-            margin-top: 5px; 
-            width: 100%; 
-            text-align: center;
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
-            color: #334155;
-            padding: 0 2px;
-        }
+        .card-name { font-size: 13px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:999; justify-content:center; align-items:center; }
-        .modal-content { background:#fff; padding:20px; border-radius:15px; width:80%; max-width:300px; }
+        .update-box { background: #fff; padding: 15px; border-radius: 12px; margin-top: 30px; font-size: 12px; color: var(--text-sub); border: 1px solid #e2e8f0; }
+        
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); justify-content: center; align-items: center; z-index: 100; padding: 20px; }
+        .modal-content { background: #fff; padding: 20px; border-radius: 16px; width: 100%; max-width: 320px; }
     </style>
 </head>
 <body>
 
-<div id="gameContainer" class="games"></div>
+<div class="header">
+    <div class="logo">开罗游戏库</div>
+    <div class="search"><input type="text" id="search" placeholder="搜索游戏..."></div>
+</div>
 
-<div id="detailModal" class="modal" onclick="this.style.display='none'">
+<div class="container" id="gameContainer"></div>
+
+<div class="container">
+    <div class="update-box">
+        <strong>最新更新</strong><br>
+        2026-06-17：新增 飞空艇探险物语
+    </div>
+</div>
+
+<div id="detailModal" class="modal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <h2 id="modalTitle" style="font-size:16px;"></h2>
-        <p id="modalDesc" style="font-size:13px; margin-top:10px;"></p >
+        <h2 id="modalTitle" style="font-size:18px; margin-bottom:10px;"></h2>
+        <p id="modalDesc" style="color:#475569; font-size:14px;"></p >
     </div>
 </div>
 
 <script>
+    // 务必确保 icon 字段有正确的图片文件名
     const gameData = [
-        {name:"大海贼探险物语DX", icon:"images/daxianhai.png", desc:"建立你的海贼帝国。"},
-        {name:"游戏开发国物语", icon:"images/kaifaguo.png", desc:"顶级游戏开发公司。"},
-        {name:"魔王城物语", icon:"images/mowangcheng.png", desc:"金钱研究不减反增。"},
-        {name:"哆啦A梦的铜锣烧店物语", icon:"images/baihuo.png", desc:"经营你的百货大楼。"}
+        {name:"大海贼DX", icon:"images/daxianhai.png", desc:"建立你的海贼帝国。"},
+        {name:"开发国", icon:"images/kaifaguo.png", desc:"顶级游戏开发公司。"},
+        {name:"魔王城", icon:"images/mowangcheng.png", desc:"经营你的魔王城。"},
+        {name:"商场物语", icon:"images/baihuo.png", desc:"经营百货大楼。"},
+        {name:"飞空艇探险物语", icon:"images/airship.png", desc:"驾驶飞空艇探索世界。"},
+        {name:"温泉物语2", icon:"images/onsen.png", desc:"经营顶级温泉旅馆。"}
     ];
 
     const container = document.getElementById("gameContainer");
-    gameData.forEach(game => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.onclick = () => {
-            document.getElementById("modalTitle").innerText = game.name;
-            document.getElementById("modalDesc").innerText = game.desc;
-            document.getElementById("detailModal").style.display = "flex";
-        };
-        card.innerHTML = `< img src="${game.icon}" onerror="this.src='https://via.placeholder.com/64'"><div class="card-name">${game.name}</div>`;
-        container.appendChild(card);
-    });
-</script>
 
+    function render(keyword = "") {
+        container.innerHTML = "";
+        const grid = document.createElement("div");
+        grid.className = "games";
+        
+        const filtered = gameData.filter(g => g.name.includes(keyword));
+        
+        filtered.forEach(game => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.onclick = () => {
+                document.getElementById("modalTitle").innerText = game.name;
+                document.getElementById("modalDesc").innerText = game.desc;
+                document.getElementById("detailModal").style.display = "flex";
+            };
+
+            // 使用 document.createElement 而不是 innerHTML，解决显示成文字的问题
+            const img = document.createElement("img");
+            img.src = game.icon;
+            img.alt = game.name;
+            
+            const nameDiv = document.createElement("div");
+            nameDiv.className = "card-name";
+            nameDiv.innerText = game.name;
+            
+            card.appendChild(img);
+            card.appendChild(nameDiv);
+            grid.appendChild(card);
+        });
+        container.appendChild(grid);
+    }
+
+    function closeModal() { document.getElementById("detailModal").style.display = "none"; }
+    document.getElementById("search").addEventListener("input", e => render(e.target.value));
+    
+    // 初始化渲染
+    render();
+</script>
 </body>
 </html>
