@@ -5,37 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>开罗游戏库</title>
     <style>
-        :root { --bg-color: #f0f4f8; --card-bg: #ffffff; --text-main: #1e293b; --text-sub: #64748b; }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { background: var(--bg-color); color: var(--text-main); font-family: sans-serif; padding-bottom: 30px; }
+        :root { --bg-color: #f8fafc; --card-bg: #ffffff; --text-main: #334155; --text-sub: #64748b; }
         
-        .header { text-align:center; padding: 30px 20px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .logo { font-size:24px; font-weight:800; color: #0f172a; margin-bottom: 15px; }
-        .search input { width:90%; max-width:400px; padding:10px 20px; border-radius:20px; border:1px solid #e2e8f0; background: #f8fafc; outline: none; }
+        /* 核心修复：-webkit-tap-highlight-color: transparent 去掉安卓点击蓝色长条 */
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
         
-        .container { width:95%; max-width:800px; margin: 20px auto; }
+        body { background: var(--bg-color); color: var(--text-main); font-family: -apple-system, sans-serif; padding-bottom: 50px; }
         
-        /* 两列布局 */
-        .games { display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .header { text-align:center; padding: 30px 20px; background: #fff; }
+        .logo { font-size:24px; font-weight:800; margin-bottom: 15px; color: #0f172a; }
+        .search { text-align: center; margin-bottom: 20px; }
+        .search input { width:90%; max-width:400px; padding:12px 20px; border-radius:20px; border:1px solid #e2e8f0; background: #f1f5f9; outline: none; }
+        
+        .container { width:95%; max-width:800px; margin: 0 auto; }
+        
+        /* 两列网格布局 */
+        .games { display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 10px; }
         
         .card { 
-            background: var(--card-bg); padding: 8px; border-radius: 10px; cursor: pointer; 
-            display: flex; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            background: var(--card-bg); padding: 10px; border-radius: 12px; cursor: pointer; 
+            display: flex; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             transition: transform 0.1s;
         }
-        .card:hover { transform: translateY(-2px); }
+        .card:active { transform: scale(0.98); } /* 点击反馈，不再显示蓝色遮罩 */
         
-        /* 强制图片显示逻辑 */
-        .card img { 
-            width: 40px; height: 40px; border-radius: 6px; 
-            object-fit: cover; margin-right: 10px; flex-shrink: 0; background: #eee; 
-        }
-        .card-name { font-size: 13px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card img { width: 40px; height: 40px; border-radius: 8px; margin-right: 10px; object-fit: cover; background: #eee; flex-shrink: 0; }
+        .card-name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .update-box { background: #fff; padding: 15px; border-radius: 12px; margin-top: 30px; font-size: 12px; color: var(--text-sub); border: 1px solid #e2e8f0; }
-        
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); justify-content: center; align-items: center; z-index: 100; padding: 20px; }
-        .modal-content { background: #fff; padding: 20px; border-radius: 16px; width: 100%; max-width: 320px; }
+        .update-box { background: #fff; padding: 20px; border-radius: 16px; margin: 30px 10px; font-size: 12px; color: var(--text-sub); border: 1px solid #e2e8f0; }
     </style>
 </head>
 <body>
@@ -54,15 +51,8 @@
     </div>
 </div>
 
-<div id="detailModal" class="modal" onclick="closeModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <h2 id="modalTitle" style="font-size:18px; margin-bottom:10px;"></h2>
-        <p id="modalDesc" style="color:#475569; font-size:14px;"></p >
-    </div>
-</div>
-
 <script>
-    // 务必确保 icon 字段有正确的图片文件名
+    // 请确保 images 文件夹下有对应的 png 文件
     const gameData = [
         {name:"大海贼DX", icon:"images/daxianhai.png", desc:"建立你的海贼帝国。"},
         {name:"开发国", icon:"images/kaifaguo.png", desc:"顶级游戏开发公司。"},
@@ -84,16 +74,11 @@
         filtered.forEach(game => {
             const card = document.createElement("div");
             card.className = "card";
-            card.onclick = () => {
-                document.getElementById("modalTitle").innerText = game.name;
-                document.getElementById("modalDesc").innerText = game.desc;
-                document.getElementById("detailModal").style.display = "flex";
-            };
+            card.onclick = () => alert(game.name + "\n" + game.desc); // 简单的点击反馈
 
-            // 使用 document.createElement 而不是 innerHTML，解决显示成文字的问题
             const img = document.createElement("img");
             img.src = game.icon;
-            img.alt = game.name;
+            img.onerror = () => img.style.display = 'none'; // 图片不存在时隐藏
             
             const nameDiv = document.createElement("div");
             nameDiv.className = "card-name";
@@ -106,10 +91,7 @@
         container.appendChild(grid);
     }
 
-    function closeModal() { document.getElementById("detailModal").style.display = "none"; }
     document.getElementById("search").addEventListener("input", e => render(e.target.value));
-    
-    // 初始化渲染
     render();
 </script>
 </body>
