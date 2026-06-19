@@ -14,7 +14,6 @@
         .search input { width:90%; max-width:400px; padding:10px 20px; border-radius:20px; border:1px solid #e2e8f0; background: #f8fafc; outline: none; }
         
         .container { width:95%; max-width:800px; margin: 20px auto; }
-        
         .games { display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         
         .card { 
@@ -23,20 +22,10 @@
             transition: transform 0.1s; min-height: 56px;
         }
         .card:hover { transform: translateY(-2px); }
-        
-        .card img { 
-            width: 40px; height: 40px; border-radius: 6px; 
-            object-fit: cover; margin-right: 10px; flex-shrink: 0; background: #eee; 
-        }
-        
-        /* 优化：允许两行，超出显示省略号 */
-        .card-name { 
-            font-size: 13px; font-weight: 500; line-height: 1.3;
-            display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; 
-            overflow: hidden; 
-        }
+        .card img { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; margin-right: 10px; flex-shrink: 0; background: #eee; }
+        .card-name { font-size: 13px; font-weight: 500; line-height: 1.3; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 
-        .update-box { background: #fff; padding: 15px; border-radius: 12px; margin-top: 30px; font-size: 12px; color: var(--text-sub); border: 1px solid #e2e8f0; }
+        .update-box { background: #fff; padding: 15px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; }
         
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); justify-content: center; align-items: center; z-index: 100; padding: 20px; }
         .modal-content { background: #fff; padding: 20px; border-radius: 16px; width: 100%; max-width: 320px; }
@@ -53,45 +42,39 @@
 
 <div class="container">
     <div class="update-box">
-        <strong>最新更新</strong><br>
-        2026-06-19：新增 飞空艇探险物语
+        <strong>最新更新</strong>
+        <div id="logList" style="margin-top: 10px;"></div>
     </div>
 </div>
 
 <div id="detailModal" class="modal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <h2 id="modalTitle" style="font-size:18px; margin-bottom:10px;"></h2>
-        <p id="modalDesc" style="color:#475569; font-size:14px;"></p>
+        <p id="modalDesc" style="color:#475569; font-size:14px;"></p >
     </div>
 </div>
 
 <script>
-    const gameData = [
-        {name:"魔王城物语", icon:"images/魔王城物语.png", desc:"功能说明：\n金钱不减反增、研究不减反增、道具不减反增\n自定义道具数量、高速模式"},
-        {name:"都市大亨物语", icon:"images/都市大亨物语.png", desc:"金钱不减反增。"},
-        {name:"时尚洋品店物语", icon:"images/时尚洋品店物语.png", desc:"金钱不减反增。"},
-        {name:"百货商场物语", icon:"images/百货商场物语.png", desc:"金钱不减反增。"},
-        {name:"百货商场物语2", icon:"images/百货商场物语2.png", desc:"金钱不减反增。"},
-        {name:"大海贼探险物语", icon:"images/大海贼探险物语.png", desc:"金钱不减反增。"},
-        {name:"大海贼探险物语DX", icon:"images/大海贼探险物语DX.png", desc:"金钱不减反增。"},
-        {name:"开罗拉面店", icon:"images/开罗拉面店.png", desc:"金钱不减反增。"},
-        {name:"开罗拉面店全国篇", icon:"images/开罗拉面店全国篇.png", desc:"金钱不减反增。"},
-        {name:"冒险村物语", icon:"images/冒险村物语.png", desc:"金钱不减反增。"},
-        {name:"冒险村物语2", icon:"images/冒险村物语2.png", desc:"金钱不减反增。"},
-        {name:"温泉物语", icon:"images/温泉物语.png", desc:"金钱不减反增。"},
-        {name:"温泉物语2", icon:"images/温泉物语2.png", desc:"金钱不减反增。"}
-    ];
-
+    let allGames = [];
     const container = document.getElementById("gameContainer");
 
-    function render(keyword = "") {
+    async function init() {
+        try {
+            const response = await fetch('data.json?t=' + new Date().getTime());
+            const data = await response.json();
+            allGames = data.games;
+            render(allGames);
+            renderLogs(data.logs);
+        } catch (e) {
+            console.error("加载数据失败：", e);
+        }
+    }
+
+    function render(list) {
         container.innerHTML = "";
         const grid = document.createElement("div");
         grid.className = "games";
-        
-        const filtered = gameData.filter(g => g.name.includes(keyword));
-        
-        filtered.forEach(game => {
+        list.forEach(game => {
             const card = document.createElement("div");
             card.className = "card";
             card.onclick = () => {
@@ -99,28 +82,28 @@
                 document.getElementById("modalDesc").innerText = game.desc;
                 document.getElementById("detailModal").style.display = "flex";
             };
-
-            const img = document.createElement("img");
-            img.src = game.icon;
-            img.alt = game.name;
-            // 容错处理：加载失败时隐藏图片
-            img.onerror = function() { this.style.display = 'none'; };
-            
-            const nameDiv = document.createElement("div");
-            nameDiv.className = "card-name";
-            nameDiv.innerText = game.name;
-            
-            card.appendChild(img);
-            card.appendChild(nameDiv);
+            card.innerHTML = `< img src="${game.icon}" onerror="this.style.display='none'"><div class="card-name">${game.name}</div>`;
             grid.appendChild(card);
         });
         container.appendChild(grid);
     }
 
+    function renderLogs(logs) {
+        const logList = document.getElementById("logList");
+        logList.innerHTML = logs.map(log => 
+            `<div style="font-size:12px; margin-bottom:4px; color:#64748b;">
+                <span style="font-weight:bold; margin-right:8px;">${log.date}</span>${log.content}
+            </div>`
+        ).join('');
+    }
+
     function closeModal() { document.getElementById("detailModal").style.display = "none"; }
-    document.getElementById("search").addEventListener("input", e => render(e.target.value));
-    
-    render();
+    document.getElementById("search").addEventListener("input", e => {
+        const filtered = allGames.filter(g => g.name.includes(e.target.value));
+        render(filtered);
+    });
+
+    init();
 </script>
 </body>
 </html>
