@@ -5,120 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>开罗游戏库</title>
     <style>
-        :root {
-            --bg-start: #f8fafc;
-            --bg-end: #e2e8f0;
-            --card: #ffffff; /* 改为纯白，更像APP图标 */
-            --text: #1e293b;
-            --accent: #2563eb;
-            --sub: #64748b;
-        }
-        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
-        body { background: linear-gradient(135deg, var(--bg-start), var(--bg-end)); min-height: 100vh; color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding-bottom: 50px; }
-        .header { text-align:center; padding:40px 20px 20px; }
-        .logo { font-size:28px; font-weight:800; color: #0f172a; }
-        .search { width:90%; max-width:400px; margin:20px auto; }
-        .search input { width:100%; padding:12px 20px; border-radius:16px; border:none; background: rgba(255,255,255,0.8); box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-size: 14px; outline: none; }
-        .container { width:90%; max-width:600px; margin:auto; }
-        .section-title { font-size:16px; font-weight:700; margin:25px 0 10px 5px; color: #475569; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: #f1f5f9; font-family: -apple-system, sans-serif; padding: 15px; }
         
-        /* 正方形布局优化 */
-        .games { display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; }
+        .games { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 8px; 
+        }
         
         .card { 
-            background: var(--card); padding:8px; border-radius:16px; cursor: pointer; 
-            transition: all 0.2s ease; text-align: center;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            aspect-ratio: 1 / 1; /* 强制正方形 */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: #ffffff; 
+            padding: 8px; 
+            border-radius: 12px; 
+            aspect-ratio: 1 / 1; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: pointer;
         }
-        .card:hover { transform: scale(1.03); }
-        .card img { width: 60%; height: auto; border-radius: 20%; object-fit: cover; margin-bottom: 6px; }
-        .card-name { font-size: 10px; font-weight: 600; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        
+        .card img { 
+            width: 70%; 
+            height: 70%; 
+            object-fit: cover; 
+            border-radius: 6px; 
+        }
+        
+        /* 关键修复：名字超长处理 */
+        .card-name { 
+            font-size: 9px; 
+            font-weight: 600; 
+            margin-top: 5px; 
+            width: 100%; 
+            text-align: center;
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            color: #334155;
+            padding: 0 2px;
+        }
 
-        .update-box { background: rgba(255,255,255,0.5); padding: 15px; border-radius: 16px; margin-top: 30px; font-size: 12px; color: var(--sub); }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); backdrop-filter: blur(5px); justify-content: center; align-items: center; z-index: 100; padding: 20px; }
-        .modal-content { background: #fff; padding: 20px; border-radius: 20px; width: 100%; max-width: 300px; }
-        #modalDesc { font-size: 13px; color: #475569; margin-top: 10px; line-height: 1.4; }
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:999; justify-content:center; align-items:center; }
+        .modal-content { background:#fff; padding:20px; border-radius:15px; width:80%; max-width:300px; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="logo">开罗游戏库</div>
-    <div class="search"><input type="text" id="search" placeholder="搜索..."></div>
-</div>
+<div id="gameContainer" class="games"></div>
 
-<div class="container" id="gameContainer"></div>
-
-<div class="container">
-    <div class="update-box">
-        <strong>更新日志</strong><br>
-        2026-06-17：新增飞空艇探险物语
-    </div>
-</div>
-
-<div id="detailModal" class="modal" onclick="closeModal()">
+<div id="detailModal" class="modal" onclick="this.style.display='none'">
     <div class="modal-content" onclick="event.stopPropagation()">
         <h2 id="modalTitle" style="font-size:16px;"></h2>
-        <p id="modalDesc"></p >
+        <p id="modalDesc" style="font-size:13px; margin-top:10px;"></p >
     </div>
 </div>
 
 <script>
-    const gameData = {
-        "热门精选": [
-            {name:"哆啦A梦的铜锣烧店物语", icon:"images/daxianhai.png", desc:"建立你的海贼帝国。"},
-            {name:"开发国", icon:"images/kaifaguo.png", desc:"顶级游戏开发公司。"},
-            {name:"魔王城", icon:"images/mowangcheng.png", desc:"金钱研究不减反增。"},
-            {name:"商场物语", icon:"images/baihuo.png", desc:"经营百货大楼。"}
-        ]
-    };
+    const gameData = [
+        {name:"大海贼探险物语DX", icon:"images/daxianhai.png", desc:"建立你的海贼帝国。"},
+        {name:"游戏开发国物语", icon:"images/kaifaguo.png", desc:"顶级游戏开发公司。"},
+        {name:"魔王城物语", icon:"images/mowangcheng.png", desc:"金钱研究不减反增。"},
+        {name:"哆啦A梦的铜锣烧店物语", icon:"images/baihuo.png", desc:"经营你的百货大楼。"}
+    ];
 
     const container = document.getElementById("gameContainer");
-
-    function render(keyword = "") {
-        container.innerHTML = "";
-        for (const category in gameData) {
-            const games = gameData[category].filter(item => item.name.includes(keyword));
-            if (games.length === 0) continue;
-
-            const title = document.createElement("div");
-            title.className = "section-title";
-            title.innerText = category;
-            container.appendChild(title);
-
-            const grid = document.createElement("div");
-            grid.className = "games";
-            container.appendChild(grid);
-
-            games.forEach(game => {
-                const card = document.createElement("div");
-                card.className = "card";
-                card.onclick = () => {
-                    document.getElementById("modalTitle").innerText = game.name;
-                    document.getElementById("modalDesc").innerText = game.desc;
-                    document.getElementById("detailModal").style.display = "flex";
-                };
-
-                const img = document.createElement("img");
-                img.src = game.icon;
-                img.alt = game.name;
-
-                const nameDiv = document.createElement("div");
-                nameDiv.className = "card-name";
-                nameDiv.innerText = game.name;
-
-                card.appendChild(img);
-                card.appendChild(nameDiv);
-                grid.appendChild(card);
-            });
-        }
-    }
-
-    function closeModal() { document.getElementById("detailModal").style.display = "none"; }
-    document.getElementById("search").addEventListener("input", e => render(e.target.value));
-    render();
+    gameData.forEach(game => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.onclick = () => {
+            document.getElementById("modalTitle").innerText = game.name;
+            document.getElementById("modalDesc").innerText = game.desc;
+            document.getElementById("detailModal").style.display = "flex";
+        };
+        card.innerHTML = `< img src="${game.icon}" onerror="this.src='https://via.placeholder.com/64'"><div class="card-name">${game.name}</div>`;
+        container.appendChild(card);
+    });
 </script>
+
 </body>
 </html>
