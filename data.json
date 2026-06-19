@@ -4,11 +4,19 @@
         {"name":"冲刺！赛车物语2", "icon":"https://kairopark.jp/android/en/image_en/game/gm132_72.png", "desc":"金钱不减反增。"},
         {"name":"箱庭都市", "icon":"https://kairopark.jp/android/en/image_en/game/gm92_72.png", "desc":"金钱不减反增。"},
         {"name":"幸福公寓物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm85_72.png", "desc":"金钱不减反增。"},
-    
         {"name":"飞空艇探险物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm161_72.png", "desc":"金钱不减反增。"},
         {"name":"哆啦A梦的铜锣烧店物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm998_72.png", "desc":"金钱不减反增。"},
         {"name":"银盘滑冰场物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm183_72.png", "desc":"金钱不减反增。"},
-        {"name":"魔王城物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm191_72.png", "desc":"功能说明：\n金钱不减反增、研究不减反增、道具不减反增\n自定义道具数量、高速模式。"} 
+        {"name":"魔王城物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm191_72.png", "desc":"功能说明：\n金钱不减反增、研究不减反增、道具不减反增\n自定义道具数量、高速模式。"},
+    
+        {"name":"平安古都物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm185_72.png", "desc":"金钱不减反增。"},
+        {"name":"探险异星飞行队", "icon":"https://kairopark.jp/android/en/image_en/game/gm189_72.png", "desc":"金钱不减反增。"},
+        {"name":"幸福公寓物语 DX", "icon":"https://kairopark.jp/android/en/image_en/game/gm86_72.png", "desc":"金钱不减反增。"},
+        {"name":"摔跤擂台物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm177_72.png", "desc":"金钱不减反增。"},
+        {"name":"洞窟冒险团物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm119_72.png", "desc":"金钱不减反增。"},
+        {"name":"前进！！英雄战队物语 DX", "icon":"https://kairopark.jp/android/en/image_en/game/gm114_72.png", "desc":"金钱不减反增。"}
+
+    
   ],
   "logs": [
     { "date": "2026-06-20", "content": "新增 飞空艇探险物语" },
