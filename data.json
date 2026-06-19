@@ -1,7 +1,18 @@
 {
   "games": [
-    { "name": "魔王城物语", "icon": "images/魔王城物语.png", "desc": "功能说明：\n金钱不减反增、研究不减反增、道具不减反增\n自定义道具数量、高速模式" },
-    { "name": "飞空艇探险物语", "icon": "images/飞空艇探险物语.png", "desc": "最新版本，功能说明：\n金钱不减反增。" }
+        {name:"魔王城物语", icon:"images/魔王城物语.png", desc:"功能说明：\n金钱不减反增、研究不减反增、道具不减反增\n自定义道具数量、高速模式"},
+        {name:"都市大亨物语", icon:"images/都市大亨物语.png", desc:"金钱不减反增。"},
+        {name:"时尚洋品店物语", icon:"images/时尚洋品店物语.png", desc:"金钱不减反增。"},
+        {name:"百货商场物语", icon:"images/百货商场物语.png", desc:"金钱不减反增。"},
+        {name:"百货商场物语2", icon:"images/百货商场物语2.png", desc:"金钱不减反增。"},
+        {name:"大海贼探险物语", icon:"images/大海贼探险物语.png", desc:"金钱不减反增。"},
+        {name:"大海贼探险物语DX", icon:"images/大海贼探险物语DX.png", desc:"金钱不减反增。"},
+        {name:"开罗拉面店", icon:"images/开罗拉面店.png", desc:"金钱不减反增。"},
+        {name:"开罗拉面店全国篇", icon:"images/开罗拉面店全国篇.png", desc:"金钱不减反增。"},
+        {name:"冒险村物语", icon:"images/冒险村物语.png", desc:"金钱不减反增。"},
+        {name:"冒险村物语2", icon:"images/冒险村物语2.png", desc:"金钱不减反增。"},
+        {name:"温泉物语", icon:"images/温泉物语.png", desc:"金钱不减反增。"},
+        {name:"温泉物语2", icon:"images/温泉物语2.png", desc:"金钱不减反增。"}
   ],
   "logs": [
     { "date": "2026-06-19", "content": "新增 飞空艇探险物语" },
