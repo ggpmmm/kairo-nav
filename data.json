@@ -29,9 +29,17 @@
         {"name":"冒险村物语2", "icon":"https://kairopark.jp/android/en/image_en/game/gm155_72.png", "desc":"金钱不减反增。"},
         {"name":"森丘露营地物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm145_72.png", "desc":"金钱不减反增。"},
         {"name":"风云拳击物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm149_72.png", "desc":"无修改版本"},
-        {"name":"创意汉堡物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm123_72.png", "desc":"无修改版本"}
-
-    
+        {"name":"创意汉堡物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm123_72.png", "desc":"无修改版本"},
+        {"name":"温泉物语2", "icon":"https://kairopark.jp/android/en/image_en/game/gm136_72.png", "desc":"金钱不减反增。"},
+        {"name":"百货商场物语2", "icon":"https://kairopark.jp/android/en/image_en/game/gm138_72.png", "desc":"金钱不减反增。"},  
+        {"name":"电影工坊物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm129_72.png", "desc":"无修改版本"},
+        {"name":"篮球热潮物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm143_72.png", "desc":"金钱不减反增。"}, 
+        {"name":"游戏厅物语 加强版", "icon":"https://kairopark.jp/android/en/image_en/game/gm90_72.png", "desc":"金钱不减反增。"},
+        {"name":"欢喜大冒险物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm120_72.png", "desc":"金钱不减反增。"},  
+        {"name":"社交游戏梦物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm99_72.png", "desc":"金钱不减反增。"},
+        {"name":"开罗拉面店全国篇", "icon":"https://kairopark.jp/android/en/image_en/game/gm116_72.png", "desc":"金钱不减反增。"},     
+        {"name":"前进!!英雄战队物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm112_72.png", "desc":"金钱不减反增。"},
+        {"name":"创意蛋糕店", "icon":"https://kairopark.jp/android/en/image_en/game/gm91_72.png", "desc":"金钱不减反增。"}
   ],
   "logs": [
     { "date": "2026-06-01", "content": "新游预告   开罗联动海贼王的海上餐厅经营模拟游戏《ONE PIECE 海洋盛宴》。" },
