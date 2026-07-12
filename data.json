@@ -1,7 +1,7 @@
 {
   "games": [
         {"name":"王都创世物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm133_72.png", "desc":"功能说明：\n钻石消费零费用、无视施工数量、建筑不减反增、装备不减反增、技能不减反增、道具不减反增、招募伙伴不减反增。"},
-        {"name":"冲刺！赛车物语2", "icon":"https://kairopark.jp/android/en/image_en/game/gm132_72.png", "desc":"功能说明：\n无。"},
+        {"name":"冲刺！赛车物语2", "icon":"https://kairopark.jp/android/en/image_en/game/gm132_72.png", "desc":"功能说明：\n锁定五千GP、金钱不减反增、研究不减反增、燃油不减反增、氮氧不减反增、谷物不减反增、道具不减反增、无视研究时间、汽车无限增压。"},
         {"name":"箱庭都市", "icon":"https://kairopark.jp/android/en/image_en/game/gm92_72.png", "desc":"功能说明：\n金钱不减反增、研究不减反增、建筑不减反增、开罗点不减反增、观光卷不减反增、城市护照、钻石五千。"},
         {"name":"幸福公寓物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm85_72.png", "desc":"功能说明：\n无。"},
         {"name":"飞空艇探险物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm161_72.png", "desc":"功能说明：\n无。"},
@@ -65,7 +65,7 @@
         {"name": "金字塔☆王国物语", "icon": "https://kairopark.jp/android/en/image_en/game/gm76_72.png", "desc": "功能说明：\n金钱不减反增、研究不减反增、道具不减反增、搬运石头x4、自定义挖掘伤害。"},
         {"name": "晴空农场物语", "icon": "https://kairopark.jp/android/en/image_en/game/gm103_72.png", "desc": "功能说明：\n无。"},
         {"name": "豪华大游轮物语", "icon": "https://kairopark.jp/android/en/image_en/game/gm40_72.png", "desc": "功能说明：\n无。"},
-        {"name": "冲刺！赛车物语", "icon": "https://kairopark.jp/android/en/image_en/game/gm46_72.png", "desc": "功能说明：\n无。"},
+        {"name": "冲刺！赛车物语", "icon": "https://kairopark.jp/android/en/image_en/game/gm46_72.png", "desc": "功能说明：\n金钱不减反增、研究不减反增。"},
         {"name": "海鲜寿司物语", "icon": "https://kairopark.jp/android/en/image_en/game/gm58_72.png", "desc": "功能说明：\n无。"},
         {"name": "合战忍者村物语", "icon": "https://kairopark.jp/android/en/image_en/game/gm70_72.png", "desc": "功能说明：\n金钱不减反增、免费增加兵力。"},
         {"name": "口袋学院物语2", "icon": "https://kairopark.jp/android/en/image_en/game/gm29_72.png", "desc": "功能说明：\n无。"},
