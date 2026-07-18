@@ -12,7 +12,7 @@
         {"name":"探险异星飞行队", "icon":"https://kairopark.jp/android/en/image_en/game/gm189_72.png", "desc":"功能说明：\n金钱不减反增、研究不减反增、奖牌不减反增、道具不减反增、高速模式。"},
         {"name":"幸福公寓物语 DX", "icon":"https://kairopark.jp/android/en/image_en/game/gm86_72.png", "desc":"功能说明：\n金钱不减反增、研究不减反增、奖卷不减反增。"},
         {"name":"摔跤擂台物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm177_72.png", "desc":"功能说明：\n金钱不减反增、研究不减反增、道具不减反增、高速模式。"},
-        {"name":"洞窟冒险团物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm119_72.png", "desc":"功能说明：\n无。"},
+        {"name":"洞窟冒险团物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm119_72.png", "desc":"功能说明：\n体力不减反增、金钱不减反增、研究不减反增、矿石不减反增、招募卷不减反增、道具不减反增、装备不减反增、建筑不减反增。"},
         {"name":"前进！！英雄战队物语 DX", "icon":"https://kairopark.jp/android/en/image_en/game/gm114_72.png", "desc":"功能说明：\n无。"},
         {"name":"开拓神秘岛 DX", "icon":"https://kairopark.jp/android/en/image_en/game/gm80_72.png", "desc":"功能说明：\n无。"},
         {"name":"大海贼探险物语 DX", "icon":"https://kairopark.jp/android/en/image_en/game/gm98_72.png", "desc":"功能说明：\n无。"},
@@ -25,7 +25,7 @@
         {"name":"便利店开业日记", "icon":"https://kairopark.jp/android/en/image_en/game/gm153_72.png", "desc":"功能说明：\n金钱不减反增、研究不减反增、奖牌不减反增、高速模式。"},
         {"name":"南国度假岛物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm171_72.png", "desc":"功能说明：\n金钱不减反增、研究不减反增、道具不减反增。"},
         {"name":"游乐园梦物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm151_72.png", "desc":"功能说明：\n无。"},
-        {"name":"打造吧！高尔夫之森", "icon":"https://kairopark.jp/android/en/image_en/game/gm165_72.png", "desc":"功能说明：\n无。"},
+        {"name":"打造吧！高尔夫之森", "icon":"https://kairopark.jp/android/en/image_en/game/gm165_72.png", "desc":"功能说明：\n金钱不减反增、研究不减反增。"},
         {"name":"冒险村物语2", "icon":"https://kairopark.jp/android/en/image_en/game/gm155_72.png", "desc":"功能说明：\n无。"},
         {"name":"森丘露营地物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm145_72.png", "desc":"功能说明：\n金钱不减反增、研究不减反增、道具不减反增、建筑不减反增。"},
         {"name":"风云拳击物语", "icon":"https://kairopark.jp/android/en/image_en/game/gm149_72.png", "desc":"功能说明：\n无。"},
@@ -48,7 +48,7 @@
         {"name": "冠军足球2", "icon": "https://kairopark.jp/android/en/image_en/game/gm97_72.png", "desc": "功能说明：\n金钱不减反增、研究不减反增、金币不减反增、道具不减反增。"},  
         {"name": "开罗拉面店", "icon": "https://kairopark.jp/android/en/image_en/game/gm115_72.png", "desc": "功能说明：\n点击添加金钱、添加研究、高速模式。"},
         {"name": "魔法师大冒险", "icon": "https://kairopark.jp/android/en/image_en/game/gm104_72.png", "desc": "功能说明：\n无。"},
-        {"name": "宇宙探险物语", "icon": "https://kairopark.jp/android/en/image_en/game/gm19_72.png", "desc": "功能说明：\n无。"},
+        {"name": "宇宙探险物语", "icon": "https://kairopark.jp/android/en/image_en/game/gm19_72.png", "desc": "功能说明：\n金钱不减反增、研究不减反增。"},
         {"name": "漫画道场物语", "icon": "https://kairopark.jp/android/en/image_en/game/gm20_72.png", "desc": "功能说明：\n无。"},   
         {"name": "时尚洋品店物语", "icon": "https://kairopark.jp/android/en/image_en/game/gm67_72.png", "desc": "功能说明：\n无。"},
         {"name": "网球俱乐部物语", "icon": "https://kairopark.jp/android/en/image_en/game/gm127_72.png", "desc": "功能说明：\n无。"},
@@ -87,3 +87,4 @@
     { "date": "2026-01-01", "content": "新游预告   开罗游戏合作《乌龙派出所》，推出全新像素风经营模拟游戏《乌龙派出所～阿两的商店街物语～》。" }
   ]
 }
+
