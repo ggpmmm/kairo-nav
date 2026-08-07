@@ -22,7 +22,8 @@
             align-items: center;
             box-shadow: 0 1px 2px rgba(0,0,0,0.05);
             transition: transform 0.1s;
-            min-height: 56px;
+            height: 64px;           /* 固定高度，确保主标题位置一致 */
+            overflow: hidden;       /* 防止内容溢出 */
         }
         .card:hover { transform: translateY(-2px); }
         .card img {
@@ -39,7 +40,7 @@
             min-width: 0;
             display: flex;
             flex-direction: column;
-            justify-content: center;  /* 新增：垂直居中 */
+            justify-content: center;  /* 垂直居中 */
         }
         .card-name {
             font-size: 13px;
@@ -57,7 +58,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-top: 2px;  /* 与主标题的间距 */
+            margin-top: 2px;
         }
         .update-box { background: #fff; padding: 15px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); justify-content: center; align-items: center; z-index: 100; padding: 20px; }
@@ -126,7 +127,7 @@
             nameDiv.innerText = game.name;
             infoDiv.appendChild(nameDiv);
 
-            // 只有当副标题有内容时才创建副标题元素
+            // 只有副标题有内容时才添加
             if (game.subtitle && game.subtitle.trim() !== "") {
                 const subtitleDiv = document.createElement("div");
                 subtitleDiv.className = "card-subtitle";
