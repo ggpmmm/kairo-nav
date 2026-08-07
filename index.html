@@ -39,6 +39,7 @@
             min-width: 0;
             display: flex;
             flex-direction: column;
+            justify-content: center;  /* 新增：垂直居中 */
         }
         .card-name {
             font-size: 13px;
@@ -56,7 +57,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-top: 1px;
+            margin-top: 2px;  /* 与主标题的间距 */
         }
         .update-box { background: #fff; padding: 15px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); justify-content: center; align-items: center; z-index: 100; padding: 20px; }
@@ -109,7 +110,6 @@
             card.className = "card";
             card.onclick = () => {
                 document.getElementById("modalTitle").innerText = game.name;
-                // 弹窗仍然使用 desc 字段，不受影响
                 document.getElementById("modalDesc").innerText = game.desc || "暂无描述";
                 document.getElementById("detailModal").style.display = "flex";
             };
@@ -124,14 +124,15 @@
             const nameDiv = document.createElement("div");
             nameDiv.className = "card-name";
             nameDiv.innerText = game.name;
-
-            // ===== 副标题：使用新字段 subtitle =====
-            const subtitleDiv = document.createElement("div");
-            subtitleDiv.className = "card-subtitle";
-            subtitleDiv.innerText = game.subtitle || "";   // 如果没填副标题，就不显示
-
             infoDiv.appendChild(nameDiv);
-            infoDiv.appendChild(subtitleDiv);
+
+            // 只有当副标题有内容时才创建副标题元素
+            if (game.subtitle && game.subtitle.trim() !== "") {
+                const subtitleDiv = document.createElement("div");
+                subtitleDiv.className = "card-subtitle";
+                subtitleDiv.innerText = game.subtitle;
+                infoDiv.appendChild(subtitleDiv);
+            }
 
             card.appendChild(img);
             card.appendChild(infoDiv);
